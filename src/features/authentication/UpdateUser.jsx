@@ -18,6 +18,10 @@ const Body = styled.body`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 480px) {
+    height: auto;
+  }
 `;
 const Container = styled.div`
   background-color: #fff;
@@ -34,7 +38,7 @@ const Container = styled.div`
   @media screen and (max-width: 480px) {
     flex-direction: column;
     width: 90%;
-    margin: 0;
+    margin: 1.5rem 1rem;
   }
 `;
 const Left = styled.div`

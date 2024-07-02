@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import AuthHeader from "../../components/AuthHeader";
 import Footer from "../../components/Footer";
 import { supabase } from "./supabase";
@@ -86,10 +86,28 @@ const Button = styled.button`
   padding: 0.6rem 2rem;
   cursor: pointer;
   margin: 1rem;
+  ${(props) =>
+    props.type === "show" &&
+    css`
+      /* display: flex; */
+      border-radius: 3px;
+      color: #fff;
+      outline: none;
+      border: none;
+      font-size: 10px;
+      padding: 5px;
+      cursor: pointer;
+      margin: 5px;
+    `}
 `;
 
 export default function Signup() {
   const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -184,13 +202,17 @@ export default function Signup() {
             <Label>
               Password:<Span>*</Span>
             </Label>
+            <Button type="show" onClick={togglePasswordVisibility}>
+              {passwordVisible ? "Hide password" : "Show password"}
+            </Button>
             <Input
               name="password"
-              type="password"
+              type={passwordVisible ? "text" : "password"}
               placeholder="*******"
               onChange={handleChange}
             />
           </InputGroup>
+
           <Center>
             <Button>Sign up</Button>
           </Center>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "./supabase";
 import toast from "react-hot-toast";
@@ -90,14 +90,33 @@ const Button = styled.button`
   font-size: 1rem;
   padding: 0.6rem 2rem;
   cursor: pointer;
+  ${(props) =>
+    props.type === "show" &&
+    css`
+      /* display: flex; */
+      border-radius: 3px;
+      color: #fff;
+      outline: none;
+      border: none;
+      font-size: 10px;
+      padding: 5px;
+      cursor: pointer;
+      margin: 5px;
+    `}
 `;
 
 export default function Login() {
   const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   function handleChange(e) {
     setFormData((prevFormData) => {
@@ -158,8 +177,11 @@ export default function Login() {
             <Label name="password">
               Password:<Span>*</Span>
             </Label>
+            <Button type="show" onClick={togglePasswordVisibility}>
+              {passwordVisible ? "Hide password" : "Show password"}
+            </Button>
             <Input
-              type="password"
+              type={passwordVisible ? "text" : "password"}
               name="password"
               placeholder="*******"
               onChange={handleChange}
