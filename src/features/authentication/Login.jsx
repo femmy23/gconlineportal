@@ -114,7 +114,8 @@ export default function Login() {
     password: "",
   });
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (e) => {
+    e.preventDefault();
     setPasswordVisible(!passwordVisible);
   };
 

@@ -105,7 +105,8 @@ export default function Signup() {
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (e) => {
+    e.preventDefault();
     setPasswordVisible(!passwordVisible);
   };
 
