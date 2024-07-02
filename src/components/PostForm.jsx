@@ -19,14 +19,31 @@ const Form = styled.form`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 960px) {
+    width: 80%;
+    height: 100%;
+  }
+  @media screen and (max-width: 480px) {
+    padding: 1rem 0rem;
+    width: 95%;
+    height: 100%;
+  }
 `;
 const FormRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    justify-content: auto;
+    align-items: center;
+  }
 `;
 const InputGroup = styled.div`
   width: 40%;
+  @media screen and (max-width: 480px) {
+    width: 80%;
+  }
 `;
 const H1 = styled.h1`
   color: #000;
@@ -34,9 +51,6 @@ const H1 = styled.h1`
 const H2 = styled.h2`
   color: #333;
   margin: 1rem;
-`;
-const Single = styled.div`
-  margin: 0 3.5rem;
 `;
 const Span = styled.span`
   color: #e2070a;
@@ -47,6 +61,13 @@ const Label = styled.label`
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 1px;
+  @media screen and (max-width: 960px) {
+    margin: 1rem;
+  }
+  @media screen and (max-width: 480px) {
+    margin: 0.5rem;
+    font-size: 0.8rem;
+  }
 `;
 const Input = styled.input`
   display: block;
@@ -110,12 +131,12 @@ export default function PostForm() {
   const [username, setUsername] = useState("");
   const [bankname, setBankName] = useState("Llyods");
 
-  const [startDate, setStartDate] = useState("2024-06-28");
-  const [maturityDate, setMaturityDate] = useState("2024-06-28");
-  const [investment, setInvestment] = useState(100001);
-  const [bondNumber, setBondNumber] = useState(4435835835);
-  const [annualReturn, setAnnualReturn] = useState(4.65);
-  const [bondType, setBondType] = useState("bond");
+  const [startDate, setStartDate] = useState();
+  const [maturityDate, setMaturityDate] = useState();
+  const [investment, setInvestment] = useState("");
+  const [bondNumber, setBondNumber] = useState("");
+  const [annualReturn, setAnnualReturn] = useState("");
+  const [bondType, setBondType] = useState("");
   const [bankImage, setBankImage] = useState(null);
   const [files, setFiles] = useState(null);
 
@@ -283,7 +304,7 @@ export default function PostForm() {
 
             <InputGroup>
               <Label for="">
-                Investment:<span>*</span>
+                Investment:<Span>*</Span>
               </Label>
               <Input
                 type="number"

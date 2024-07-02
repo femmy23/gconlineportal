@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import Spinner from "../../components/Spinner";
 import { getSession } from "../services/getSession";
 import Login from "./Login";
 
@@ -28,10 +27,7 @@ export default function ProtectedRoute({ children }) {
   }, []);
 
   useEffect(() => {
-    if (session) {
-      console.log(session);
-    }
-    // if (!session) navigate("/login");
+    if (!session) navigate("/home");
   }, []);
 
   return <div>{session ? children : <Login />}</div>;

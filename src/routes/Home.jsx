@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { styled } from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -29,6 +30,9 @@ const Button = styled.button`
 `;
 
 export default function Home() {
+  // useEffect(() => {
+  //   window.location.reload(false);
+  // }, []);
   return (
     <>
       <Header />

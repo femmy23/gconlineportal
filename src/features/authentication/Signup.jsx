@@ -72,10 +72,6 @@ const InputGroup = styled.div`
 const Center = styled.div`
   text-align: center;
 `;
-// const Link = styled.a`
-//   color: #5e5ef0;
-//   text-decoration: none;
-// `;
 const P = styled.p`
   margin: 1.3rem;
   font-size: 1rem;
@@ -126,9 +122,9 @@ export default function Signup() {
       });
       if (error) throw error;
 
-      toast.success(
-        "Account successfully created! verify account from your email address "
-      );
+      toast.success("Account successfully created!");
+      toast.success("verify account from your email address!");
+
       navigate("/login");
     } catch (error) {
       toast.error(`${error.message}, Try Again`);
@@ -140,7 +136,7 @@ export default function Signup() {
       <AuthHeader />
       <Body>
         <Form onSubmit={handleSubmit}>
-          <H2>Login to PICMO</H2>
+          <H2>Login to PIMCO</H2>
           <P>
             Already have an account?
             <Link className="link" to="/login">

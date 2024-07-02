@@ -13,6 +13,9 @@ const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0 2rem;
+  @media screen and (max-width: 480px) {
+    margin: 0 1rem;
+  }
 `;
 
 const Logo = styled.div`

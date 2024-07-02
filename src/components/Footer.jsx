@@ -1,4 +1,5 @@
 import React from "react";
+import { FaEnvelope, FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { styled } from "styled-components";
 
 const FooterSection = styled.footer`
@@ -35,6 +36,9 @@ const Icons = styled.div`
   display: flex;
   justify-content: end;
   margin: 1rem;
+  @media screen and (max-width: 480px) {
+    justify-content: center;
+  }
 `;
 const IconsButton = styled.div`
   background-color: #5e5ef0;
@@ -43,9 +47,12 @@ const IconsButton = styled.div`
   outline: none;
   border: none;
   font-size: 1.1rem;
-  padding: 0.5rem;
+  padding: 0.3rem 0.5rem;
   cursor: pointer;
   margin: 0.5rem;
+  &:hover {
+    background-color: #4848f1;
+  }
 `;
 const Copyright = styled.div`
   background-color: #1a0541;
@@ -61,7 +68,7 @@ export default function Footer() {
     <FooterSection>
       <FooterContainer>
         <Details>
-          <H4>PCIMO</H4>
+          <H4>PIMCO</H4>
           <P>
             PIMCO is an investment management firm providing solutions for
             institution, financial professionals and millions of individual
@@ -83,10 +90,18 @@ export default function Footer() {
             links below.
           </P>
           <Icons>
-            <IconsButton>⭐</IconsButton>
-            <IconsButton>⭐</IconsButton>
-            <IconsButton>⭐</IconsButton>
-            <IconsButton>⭐</IconsButton>
+            <IconsButton>
+              <FaFacebook />
+            </IconsButton>
+            <IconsButton>
+              <FaTwitter />
+            </IconsButton>
+            <IconsButton>
+              <FaLinkedin />
+            </IconsButton>
+            <IconsButton>
+              <FaEnvelope />
+            </IconsButton>
           </Icons>
         </Details>
       </FooterContainer>

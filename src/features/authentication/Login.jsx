@@ -7,9 +7,10 @@ import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner";
 import Footer from "../../components/Footer";
 import AuthHeader from "../../components/AuthHeader";
+import Home from "../../routes/Home";
 
 const Body = styled.body`
-  height: 100vh;
+  height: 80vh;
   background-color: #a0cee8;
   display: flex;
   justify-content: center;
@@ -108,7 +109,6 @@ export default function Login() {
   }
 
   async function handleSubmit(e) {
-    navigate("/login");
     e.preventDefault();
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -120,8 +120,10 @@ export default function Login() {
       }
 
       if (error) throw error;
-      navigate("/");
-      toast.success("Logged In successfully! ");
+
+      toast.success("Logged In successfully!");
+      navigate("/home");
+      window.location.reload(false);
     } catch (error) {
       toast.error(`${error.message}, Try Again`);
     }
@@ -132,9 +134,9 @@ export default function Login() {
       <AuthHeader />
       <Body>
         <Form onSubmit={handleSubmit}>
-          <H2>Login to PICMO</H2>
+          <H2>Login to PIMCO</H2>
           <P>
-            New to Beetle?
+            New to PIMCO?
             <Link className="link" to="/signup">
               Create an Account
             </Link>
@@ -153,7 +155,7 @@ export default function Login() {
           </InputGroup>
 
           <InputGroup>
-            <Label for="">
+            <Label name="password">
               Password:<Span>*</Span>
             </Label>
             <Input
@@ -165,7 +167,7 @@ export default function Login() {
           </InputGroup>
 
           <P>
-            <Link className="link" to="/">
+            <Link className="link" to="#">
               Forgot Password
             </Link>
           </P>

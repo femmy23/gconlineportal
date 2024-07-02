@@ -24,15 +24,15 @@ export default function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Home />} />
+          <Route index element={<Home replace to="home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/account" element={<Account />} />
           <Route path="/user" element={<User />} />
           <Route path="/login" element={<Login />} />
           <Route path="/post" element={<Posts />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );
