@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import MoveBack from "../components/MoveBack";
 import { fetchAccount } from "../features/services/fetchAccount";
 
 const H1 = styled.h1`
@@ -13,14 +14,17 @@ const H2 = styled.h2`
   font-weight: 600;
   margin: 0.5rem;
 `;
+const H5 = styled.h5`
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 4rem;
+`;
 const Acc = styled.div`
   margin: 3rem;
 `;
-const Body = styled.body`
-  margin-bottom: 3rem;
-`;
 const ParaText = styled.div`
-  font-size: 1.05rem;
+  font-size: 1.2rem;
 `;
 const Center = styled.div`
   text-align: center;
@@ -70,16 +74,32 @@ const Tf = styled.tfoot`
   padding: 0.5rem;
   margin: ;
 `;
+const Body = styled.body`
+  margin-bottom: 3rem;
+`;
 
-export default function Account() {
-  const [account, setAccount] = useState([]);
+export default function FixedTermDeposit() {
   const [bondTotal, setBondTotal] = useState(0);
+  const [account, setAccount] = useState([]);
 
   const collect = async () => {
-    const { bnd, dataAccount } = await fetchAccount();
+    const { dataAccount } = await fetchAccount();
 
-    setAccount(dataAccount);
-    setBondTotal(Number(bnd.toFixed(2)));
+    const fixedOnly = dataAccount?.filter(
+      (acc) => acc.bondType === "fixed-term-deposit"
+    );
+
+    if (fixedOnly.length === 0) {
+      setBondTotal(0);
+      return;
+    }
+
+    const bnd = fixedOnly
+      ?.map((acc) => acc.bondPayment)
+      ?.reduce((ac, cur) => Number(ac) + Number(cur));
+
+    setBondTotal(bnd);
+    setAccount(fixedOnly);
   };
 
   useEffect(() => {
@@ -89,8 +109,10 @@ export default function Account() {
   return (
     <>
       <Header />
+      <MoveBack />
       <Body>
-        <H1>My Account</H1>
+        <Header />
+        <H1>Fixed Term Deposit</H1>
 
         {account?.map((acc, i) => {
           return (
@@ -144,7 +166,6 @@ export default function Account() {
             <Th>€{bondTotal}</Th>
           </Tr>
         </Table>
-
         <Center>
           <Button>View Itemised Payments</Button>
           <Button>View Bonds Total</Button>

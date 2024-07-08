@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { fetchAccount } from "../features/services/fetchAccount";
 
 const Views = styled.div`
   text-align: center;
@@ -30,9 +32,16 @@ const Button = styled.button`
 `;
 
 export default function Home() {
-  // useEffect(() => {
-  //   window.location.reload(false);
-  // }, []);
+  const [balance, setBalance] = useState(0);
+
+  const collect = async () => {
+    const { bal } = await fetchAccount();
+    setBalance(Number(bal.toFixed(2)));
+  };
+  useEffect(() => {
+    collect();
+  }, []);
+
   return (
     <>
       <Header />
@@ -40,15 +49,20 @@ export default function Home() {
         <Img src="bg.jpg" alt="Bg-image" />
         <Views>
           <H3>INVESTED TOTAL</H3>
-          <H3>€200.00</H3>
-          <Button>View Account</Button>
+          <H3>€{balance}</H3>
+
+          <Link to="/account">
+            <Button>View Account</Button>
+          </Link>
         </Views>
         <hr />
         <Views>
           <H3>TRADING</H3>
           <H3>0</H3>
           <p>profit/loss</p>
-          <Button>View Account</Button>
+          <Link to="/account">
+            <Button>View Account</Button>
+          </Link>
         </Views>
       </body>
       <Footer />

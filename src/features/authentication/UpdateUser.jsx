@@ -7,6 +7,7 @@ import { styled } from "styled-components";
 // import Avatar from "../../components/Avatar";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import MoveBack from "../../components/MoveBack";
 import { getCurrentUser } from "../services/FetchData";
 import { updateData } from "../services/updateData";
 import { uploadAvatar } from "../services/uploadImage";
@@ -158,7 +159,7 @@ export default function User() {
   const [email, setEmail] = useState(null);
   const [avatar_url, setAvatarUrl] = useState(null);
   const [files, setFiles] = useState(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("default-user.jpg");
 
   const handleFile = (e) => {
     console.log(e.target.files[0]);
@@ -167,7 +168,7 @@ export default function User() {
 
   useEffect(() => {
     getProfile();
-  }, [image]);
+  }, []);
 
   const getProfile = async () => {
     const userId = await getCurrentUser();
@@ -231,21 +232,19 @@ export default function User() {
       toast.success("User Signed Out Successfully");
       navigate("/login");
     } catch (error) {
-      toast.danger(error.message);
+      toast.error(error.message);
     }
   };
 
   return (
     <>
       <Header />
+      <MoveBack />
       <Body>
         <Container>
           <Left>
             <First>
-              <Avatar
-                src={image ? image : "default-user.jpg"}
-                alt={`Avatar of ${fullname}`}
-              />
+              <Avatar src={image} alt={`Avatar of ${fullname}`} />
               <H5>{fullname}</H5>
               <A href="#"> View Profile</A>
             </First>
@@ -293,7 +292,7 @@ export default function User() {
 
               <InputGroup>
                 <Label for="">
-                  Bank Image:<Red>*</Red>
+                  Profile Image:<Red>*</Red>
                 </Label>
                 <Input
                   type="file"

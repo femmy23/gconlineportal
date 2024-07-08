@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { styled, css } from "styled-components";
 import { supabase } from "../features/authentication/supabase";
 import { fetchProfile } from "../features/services/FetchData";
+import DropDown from "./DropDown";
 import { MenuItems } from "./MenuItems";
 
 const HeaderContainer = styled.div`
@@ -32,6 +33,8 @@ const Ul = styled.ul`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 4 rem;
+
   ${(props) =>
     props.type === "inactive" &&
     css`
@@ -63,8 +66,11 @@ const Ul = styled.ul`
     `};
 `;
 const Li = styled.li`
+  display: flex;
   list-style: none;
-  margin: 1rem;
+  margin: 0 1rem;
+  padding: 1.5rem 0;
+  align-self: center;
 `;
 const MenuIcon = styled.div`
   font-size: 1.3rem;
@@ -80,6 +86,8 @@ const A = styled.a`
   font-size: 1rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 5px;
   &:hover {
     color: #5e5ef0;
   }
@@ -122,6 +130,7 @@ const Button = styled.button`
 export default function Header() {
   const [clicked, setClicked] = useState(false);
   const [isAdmin, setIsAdmin] = useState();
+  const [dropdown, setDropdown] = useState(false);
 
   const navigate = useNavigate();
 
@@ -151,35 +160,55 @@ export default function Header() {
   }, []);
 
   return (
-    <HeaderContainer>
-      <Logo className="logo">
-        <Img src="./logo.png" href="/" alt="logo" />
-      </Logo>
-      <MenuIcon onClick={onToggle}>
-        {clicked ? <FaTimes /> : <FaBars />}
-      </MenuIcon>
-      <Ul type={clicked ? "active" : "inactive"}>
-        {MenuItems.map((item, i) => {
-          return (
-            <Li key={i}>
-              <Link to={item.url} style={{ textDecoration: "none" }}>
-                <A type={item.type}>{item.title}</A>
+    <>
+      <HeaderContainer>
+        <Logo className="logo">
+          <Img src="./logo.png" href="/home" alt="logo" />
+        </Logo>
+        <MenuIcon onClick={onToggle}>
+          {clicked ? <FaTimes /> : <FaBars />}
+        </MenuIcon>
+        <Ul type={clicked ? "active" : "inactive"}>
+          {MenuItems.map((item, i) => {
+            if (item.title === "Account") {
+              return (
+                <Li
+                  key={i}
+                  onMouseEnter={() => setDropdown(true)}
+                  onMouseLeave={() => setDropdown(false)}
+                >
+                  <Link to={item.url} style={{ textDecoration: "none" }}>
+                    <A type={item.type}>
+                      {item.title}
+                      {item.icon}
+                    </A>
+                    {dropdown && <DropDown />}
+                  </Link>
+                </Li>
+              );
+            }
+            return (
+              <Li key={i}>
+                <Link to={item.url} style={{ textDecoration: "none" }}>
+                  <A type={item.type}>{item.title}</A>
+                </Link>
+              </Li>
+            );
+          })}
+
+          {isAdmin ? (
+            <Li>
+              <Link to="/post" style={{ textDecoration: "none" }}>
+                <A type="nav-links">Post</A>
               </Link>
             </Li>
-          );
-        })}
-        {isAdmin ? (
-          <Li>
-            <Link to="/post" style={{ textDecoration: "none" }}>
-              <A type="nav-links">Post</A>
-            </Link>
-          </Li>
-        ) : (
-          ""
-        )}
+          ) : (
+            ""
+          )}
 
-        <Button onClick={handleLogout}>Logout </Button>
-      </Ul>
-    </HeaderContainer>
+          <Button onClick={handleLogout}>Logout </Button>
+        </Ul>
+      </HeaderContainer>
+    </>
   );
 }

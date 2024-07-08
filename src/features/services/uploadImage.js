@@ -3,8 +3,8 @@ import { supabase } from "../authentication/supabase";
 import { getCurrentUser } from "./FetchData";
 
 export async function uploadBankImage(file) {
-  const userId = await getCurrentUser();
   const rand = Math.random();
+  const userId = await getCurrentUser();
   // Step 1: Upload the new image
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from("bankImage")
@@ -31,11 +31,12 @@ export async function uploadBankImage(file) {
 }
 
 export async function uploadAvatar(file) {
+  const rand = Math.random();
   const userId = await getCurrentUser();
   // Step 1: Upload the new image
   const { data: uploadData, error: uploadError } = await supabase.storage
     .from("avatars")
-    .upload(`${userId}-${file?.name}.png`, file);
+    .upload(`${userId}-${rand}-${file?.name}.png`, file);
 
   if (uploadData) {
     console.log(uploadData);
@@ -47,7 +48,7 @@ export async function uploadAvatar(file) {
   // Step 2: Generate a public URL for the image
   const { data: publicURL, error: urlError } = supabase.storage
     .from("avatars")
-    .getPublicUrl(`${userId}-${file?.name}.png`);
+    .getPublicUrl(`${userId}-${rand}-${file?.name}.png`);
 
   if (publicURL) {
     console.log(publicURL.publicUrl);

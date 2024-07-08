@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { supabase } from "../authentication/supabase";
 
@@ -11,6 +12,6 @@ export const handleLogout = async () => {
     toast.success("User Signed Out Successfully");
     navigate("/login");
   } catch (error) {
-    toast.danger(error.message);
+    toast.error(error.message);
   }
 };

@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { supabase } from "../features/authentication/supabase";
 import { uploadBankImage } from "../features/services/uploadImage";
+import MoveBack from "./MoveBack";
 
 const Body = styled.body`
   display: flex;
@@ -99,7 +100,6 @@ const Select = styled.select`
     background-color: #dff3ff;
   }
 `;
-
 const InputCheckbox = styled.div`
   margin-top: 1.5rem;
   display: flex;
@@ -128,6 +128,8 @@ const Button = styled.button`
 `;
 
 export default function PostForm() {
+  const [loading, setLoading] = useState(false);
+
   const [username, setUsername] = useState("");
   const [bankname, setBankName] = useState("Llyods");
 
@@ -136,12 +138,10 @@ export default function PostForm() {
   const [investment, setInvestment] = useState("");
   const [bondNumber, setBondNumber] = useState("");
   const [annualReturn, setAnnualReturn] = useState("");
-  const [bondType, setBondType] = useState("");
+  const [bondType, setBondType] = useState("fixed-term-deposit");
   const [bankImage, setBankImage] = useState(null);
   const [files, setFiles] = useState(null);
 
-  // const [totalInterest, setTotalInterest] = useState(null);
-  // const [bondPayment, setBondPayment] = useState(null);
   const handleFile = (e) => {
     console.log(e.target.files[0]);
     setFiles(e.target.files[0]);
@@ -149,9 +149,12 @@ export default function PostForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     let totalInterest = Number((annualReturn / 100) * investment).toFixed(2);
-    let bondPayment = Number(investment + Number(totalInterest)).toFixed(2);
+    let bondPayment = Number(
+      Number(investment) + Number(totalInterest)
+    ).toFixed(2);
 
     const bankImageUrl = await uploadBankImage(files);
 
@@ -203,11 +206,13 @@ export default function PostForm() {
       }
     };
     updateAccount();
+    setLoading(false);
   };
 
   return (
     <>
       <Header />
+      <MoveBack />
       <Body>
         <H1>Account Post</H1>
         <Form onSubmit={handleSubmit}>
@@ -331,36 +336,15 @@ export default function PostForm() {
               <Label for="">
                 Bond Type:<Span>*</Span>
               </Label>
-              <Select>
-                <option>Fixed Term Deposit</option>
-                <option>Bonds</option>
+              <Select
+                value={bondType}
+                onChange={(e) => setBondType(e.target.value)}
+              >
+                <option value="Fixed-term-deposit">Fixed Term Deposit</option>
+                <option value="bond">Bonds</option>
               </Select>
             </InputGroup>
-
-            {/* <InputGroup>
-              <Label for="">
-                Total Interest:<span>*</span>
-              </Label>
-              <Input
-                type="number"
-                value={totalInterest}
-                onChange={(e) => setTotalInterest(e.target.value)}
-                required
-              />
-            </InputGroup> */}
           </FormRow>
-
-          {/* <InputGroup>
-            <Label for="">
-              Bond Payments:<span>*</span>
-            </Label>
-            <Input
-              type="number"
-              value={bondPayment}
-              onChange={(e) => setBondPayment(e.target.value)}
-              required
-            />
-          </InputGroup> */}
 
           <InputCheckbox>
             <InputCheckboxes
@@ -373,7 +357,9 @@ export default function PostForm() {
           </InputCheckbox>
 
           <InputGroup>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Submitting..." : "Submit"}
+            </Button>{" "}
           </InputGroup>
         </Form>
       </Body>

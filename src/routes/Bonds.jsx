@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import MoveBack from "../components/MoveBack";
 import { fetchAccount } from "../features/services/fetchAccount";
 
 const H1 = styled.h1`
@@ -13,19 +14,21 @@ const H2 = styled.h2`
   font-weight: 600;
   margin: 0.5rem;
 `;
+const H5 = styled.h5`
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 4rem;
+`;
 const Acc = styled.div`
   margin: 3rem;
 `;
-const Body = styled.body`
-  margin-bottom: 3rem;
-`;
 const ParaText = styled.div`
-  font-size: 1.05rem;
+  font-size: 1.2rem;
 `;
 const Center = styled.div`
   text-align: center;
 `;
-
 const Img = styled.img`
   width: 20rem;
   height: 13rem;
@@ -41,7 +44,6 @@ const Button = styled.button`
   cursor: pointer;
   background-color: #5e5ef0;
 `;
-
 const Table = styled.table`
   margin: 0 auto;
   text-align: center;
@@ -59,6 +61,9 @@ const Th = styled.th`
   border: 1px solid #ccc;
   padding: 0.5rem;
 `;
+const Body = styled.body`
+  margin-bottom: 3rem;
+`;
 const Td = styled.td`
   text-align: center;
   border: 1px solid #ccc;
@@ -71,15 +76,26 @@ const Tf = styled.tfoot`
   margin: ;
 `;
 
-export default function Account() {
-  const [account, setAccount] = useState([]);
+export default function Bonds() {
   const [bondTotal, setBondTotal] = useState(0);
+  const [account, setAccount] = useState([]);
 
   const collect = async () => {
-    const { bnd, dataAccount } = await fetchAccount();
+    const { dataAccount } = await fetchAccount();
 
-    setAccount(dataAccount);
-    setBondTotal(Number(bnd.toFixed(2)));
+    const bondOnly = dataAccount?.filter((acc) => acc.bondType == "bond");
+
+    if (bondOnly.length === 0) {
+      setBondTotal(0);
+      return;
+    }
+
+    const bnd = bondOnly
+      ?.map((acc) => acc.bondPayment)
+      ?.reduce((ac, cur) => Number(ac) + Number(cur));
+
+    setBondTotal(bnd);
+    setAccount(bondOnly);
   };
 
   useEffect(() => {
@@ -89,8 +105,9 @@ export default function Account() {
   return (
     <>
       <Header />
+      <MoveBack />
       <Body>
-        <H1>My Account</H1>
+        <H1>Bonds</H1>
 
         {account?.map((acc, i) => {
           return (

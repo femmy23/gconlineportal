@@ -6,4 +6,8 @@ const Key =
 const supabaseUrl = "https://ctrjxdnqynlykexskdgt.supabase.co";
 const supabaseKey = Key;
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    redirectTo: "localhost:5173/changePassword",
+  },
+});

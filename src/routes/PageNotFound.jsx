@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import MoveBack from "../components/MoveBack";
 
 export default function PageNotFound() {
   const Body = styled.body`
@@ -21,6 +22,7 @@ export default function PageNotFound() {
   return (
     <>
       <Header />
+      <MoveBack />
       <Body>
         <H1>
           {" "}

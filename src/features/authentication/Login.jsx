@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner";
 import Footer from "../../components/Footer";
 import AuthHeader from "../../components/AuthHeader";
-import Home from "../../routes/Home";
 
 const Body = styled.body`
   height: 80vh;
@@ -190,7 +189,7 @@ export default function Login() {
           </InputGroup>
 
           <P>
-            <Link className="link" to="#">
+            <Link className="link" to="/forgetPassword">
               Forgot Password
             </Link>
           </P>

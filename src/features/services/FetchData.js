@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import { supabase } from "../authentication/supabase";
 
 export const getCurrentUser = async () => {
@@ -15,7 +16,7 @@ export const getCurrentUser = async () => {
     // console.log("Current user:", user);
     return user.id;
   } else {
-    console.log("No user is signed in.");
+    toast.error("No user is signed in.");
   }
 };
 
