@@ -158,7 +158,7 @@ export default function Bonds() {
             <Td></Td>
             <Td></Td>
             <Td></Td>
-            <Th>€{bondTotal}</Th>
+            <Th>€{bondTotal.toLocaleString()}</Th>
           </Tr>
         </Table>
 

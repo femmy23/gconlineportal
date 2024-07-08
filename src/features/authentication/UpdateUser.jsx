@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 // import Avatar from "../../components/Avatar";
 import Footer from "../../components/Footer";
@@ -249,8 +250,12 @@ export default function User() {
               <A href="#"> View Profile</A>
             </First>
             <Options className="options">
-              <Button>Delete Account</Button>
-              <Button>Change Password</Button>
+              <Button onClick={() => toast.error("Not Authorized")}>
+                Delete Account
+              </Button>
+              <Link to="/forgetPassword">
+                <Button>Change Password</Button>
+              </Link>
               <Button onClick={handleLogout}>Logout</Button>
             </Options>
           </Left>

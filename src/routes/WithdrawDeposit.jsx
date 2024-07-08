@@ -17,6 +17,7 @@ export default function WithdrawDeposit() {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
   `;
 
   const P = styled.p`
@@ -25,12 +26,12 @@ export default function WithdrawDeposit() {
     text-align: "center";
   `;
   const H1 = styled.h1`
-    margin: 1rem;
+    /* margin: 1rem; */
     text-align: "center";
   `;
   const Icon = styled.div`
     background-color: #000;
-    padding: 1.5rem 2rem;
+    padding: 1rem 1.5rem;
     border-radius: 50%;
     font-size: 3rem;
     color: #fff;

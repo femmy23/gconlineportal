@@ -8,7 +8,7 @@ export const MenuItems = [
   },
   {
     title: "Account",
-    url: "/account",
+    // url: "/account",
     type: "nav-links",
     icon: <GoChevronDown />,
   },
@@ -27,17 +27,17 @@ export const MenuItems = [
 export const accountDropdown = [
   {
     title: "Bonds",
-    url: "/account/bonds",
+    url: "/bonds",
     type: "nav-links",
   },
   {
     title: "Fixed Term Deposit",
-    url: "/account/FixedTermDeposit",
+    url: "/FixedTermDeposit",
     type: "nav-links",
   },
   {
     title: "Withdraw & Deposit",
-    url: "/account/WithdrawDeposit",
+    url: "/WithdrawDeposit",
     type: "nav-links",
   },
 ];

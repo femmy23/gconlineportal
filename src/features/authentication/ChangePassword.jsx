@@ -100,10 +100,10 @@ export default function ChangePassword() {
     e.preventDefault();
     setLoading(true);
 
-    if (!access_token) {
-      toast.error("Access token is missing.");
-      return;
-    }
+    // if (!access_token) {
+    //   toast.error("Access token is missing.");
+    //   return;
+    // }
 
     if (password === confirmPassword) {
       const { error } = await supabase.auth.updateUser(access_token, {

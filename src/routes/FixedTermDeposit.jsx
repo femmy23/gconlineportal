@@ -111,7 +111,6 @@ export default function FixedTermDeposit() {
       <Header />
       <MoveBack />
       <Body>
-        <Header />
         <H1>Fixed Term Deposit</H1>
 
         {account?.map((acc, i) => {
@@ -163,7 +162,7 @@ export default function FixedTermDeposit() {
             <Td></Td>
             <Td></Td>
             <Td></Td>
-            <Th>€{bondTotal}</Th>
+            <Th>€{bondTotal.toLocaleString()}</Th>
           </Tr>
         </Table>
         <Center>

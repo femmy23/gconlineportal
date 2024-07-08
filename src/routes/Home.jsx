@@ -36,7 +36,7 @@ export default function Home() {
 
   const collect = async () => {
     const { bal } = await fetchAccount();
-    setBalance(Number(bal.toFixed(2)));
+    setBalance(Number(bal.toFixed(2)).toLocaleString());
   };
   useEffect(() => {
     collect();

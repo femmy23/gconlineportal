@@ -31,17 +31,10 @@ export default function App() {
         >
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/account/bonds" element={<Bonds />} />
-
-          <Route
-            path="/account/FixedTermDeposit"
-            element={<FixedTermDeposit />}
-          />
-          <Route
-            path="/account/WithdrawDeposit"
-            element={<WithdrawDeposit />}
-          />
+          {/* <Route path="/account" element={<Account />} /> */}
+          <Route path="/bonds" element={<Bonds />} />
+          <Route path="/FixedTermDeposit" element={<FixedTermDeposit />} />
+          <Route path="/WithdrawDeposit" element={<WithdrawDeposit />} />
           <Route path="/user" element={<User />} />
           <Route path="/post" element={<Posts />} />
           <Route path="/login" element={<Login />} />

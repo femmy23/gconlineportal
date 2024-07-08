@@ -300,7 +300,7 @@ export default function PostForm() {
                 Bond Number:<Span>*</Span>
               </Label>
               <Input
-                type="number"
+                type="text"
                 value={bondNumber}
                 onChange={(e) => setBondNumber(e.target.value)}
                 required
@@ -314,7 +314,7 @@ export default function PostForm() {
               <Input
                 type="number"
                 value={investment}
-                onChange={(e) => setInvestment(e.target.value)}
+                onChange={(e) => setInvestment(e.target.value).toFixed(2)}
                 required
               />
             </InputGroup>
@@ -328,7 +328,7 @@ export default function PostForm() {
               <Input
                 type="number"
                 value={annualReturn}
-                onChange={(e) => setAnnualReturn(e.target.value)}
+                onChange={(e) => setAnnualReturn(e.target.value).toFixed(2)}
                 required
               />
             </InputGroup>
