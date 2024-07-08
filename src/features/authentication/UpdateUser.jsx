@@ -160,7 +160,7 @@ export default function User() {
   const [email, setEmail] = useState(null);
   const [avatar_url, setAvatarUrl] = useState(null);
   const [files, setFiles] = useState(null);
-  const [image, setImage] = useState("default-user.jpg");
+  const [image, setImage] = useState("");
 
   const handleFile = (e) => {
     console.log(e.target.files[0]);
@@ -245,7 +245,10 @@ export default function User() {
         <Container>
           <Left>
             <First>
-              <Avatar src={image} alt={`Avatar of ${fullname}`} />
+              <Avatar
+                src={image ? image : "default-user.jpg"}
+                alt={`Avatar of ${fullname}`}
+              />
               <H5>{fullname}</H5>
               <A href="#"> View Profile</A>
             </First>

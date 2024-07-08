@@ -11,6 +11,7 @@ const H1 = styled.h1`
   margin-top: 1rem;
 `;
 const H2 = styled.h2`
+  font-size: 1.5rem;
   font-weight: 600;
   margin: 0.5rem;
 `;
@@ -116,8 +117,8 @@ export default function FixedTermDeposit() {
         {account?.map((acc, i) => {
           return (
             <Acc key={i}>
-              <Img src={acc.bankImageUrl} alt={`${acc.bankname} image`} />
               <H2>{acc.bankname}</H2>
+              <Img src={acc.bankImageUrl} alt={`${acc.bankname} image`} />
               <ParaText>
                 Start Date: {acc.startDate}
                 <br />

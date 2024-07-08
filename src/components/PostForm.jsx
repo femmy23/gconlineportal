@@ -163,6 +163,7 @@ export default function PostForm() {
       maturityDate,
       investment,
       bondNumber,
+      bankname,
       annualReturn,
       bondType,
       bankImageUrl,
@@ -314,7 +315,7 @@ export default function PostForm() {
               <Input
                 type="number"
                 value={investment}
-                onChange={(e) => setInvestment(e.target.value).toFixed(2)}
+                onChange={(e) => setInvestment(e.target.value)}
                 required
               />
             </InputGroup>
@@ -328,7 +329,7 @@ export default function PostForm() {
               <Input
                 type="number"
                 value={annualReturn}
-                onChange={(e) => setAnnualReturn(e.target.value).toFixed(2)}
+                onChange={(e) => setAnnualReturn(e.target.value)}
                 required
               />
             </InputGroup>
